@@ -4,5 +4,7 @@ It's hard to set, without few thing that I don't mentioned here
 Comments in code are in polish
 
 What It do ?
+
 I have old server in my home, I use it only to run some game servers
+
 So It starts my local machine by command on discord, and if no one is on it, shutdown it, and thats all
