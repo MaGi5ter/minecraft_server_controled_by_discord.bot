@@ -1,5 +1,5 @@
 {
-    "token":"",
-    "admin":"",
-    "channel":""
+    "token":"bot_token",
+    "admin":"bot_will_execute_code_only_for_account_with_this_id",
+    "channel":"channel_where_bot_will_work"
 }
