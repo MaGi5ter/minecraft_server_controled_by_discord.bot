@@ -1,0 +1,12 @@
+{
+    "token": "discord_token_here",
+    "prefix": ",,",
+    "servers": [
+        "channel_id","path_where_code_will_be_executed","-./mc.sh",
+        "can_add","more_if","needed"
+    ],
+    "start": "ifttt_webhook to start smart plug",
+    "stop": "ifttt_webhook to stop smart plug",
+    "server_bot_channel": "ID of channel where commands are send",
+    "hardware_bot": "ID of bot that is running on your local machine"
+}
