@@ -40,7 +40,7 @@ client.on ("ready" , () => {
 })
 // --------  ----------  ---------------
 
-async function check_status() // sprawdzanie czy serwery gry są online
+async function check_status() // checks if game servers are active
 {
     var chan = 0
     for(let i = 0; i<servers.length ; i+=3)
@@ -123,15 +123,15 @@ client.on("messageCreate",message => {
             {
                 if(message.channel.id == config.servers[i])
                 {
-                    if(cooldown[chan]-message.createdTimestamp>0){ //sprawdzanie cooldownu, kazdorazowe wpisanie komendy daje cooldown na 5 minut, aby nie robić błędów
+                    if(cooldown[chan]-message.createdTimestamp>0){ //checking cooldown, everytime when sb uses a command it gives 5 minutes cooldown to everyone, to prevent issues
                         console.log(`cooldown _server ${chan}`)
-                        message.author.send('cooldown, poczekaj 5 minut') //informacja dla wpisujacego ze jest cooldown na kanał
+                        message.author.send('cooldown, poczekaj 5 minut') //information to channel about cooldown
                         return
                     }
 
-                    cooldown[chan] = message.createdTimestamp+180000  //tu nadaje cooldown domyslnie na 5 minut
+                    cooldown[chan] = message.createdTimestamp+180000  //here it sets cooldown, default for 5 min
 
-                    async function check_if_error() //ta funkcja gdy ktos chce właczyc serwer, sprawdza wszystko czy działa i uruchamia pokolei
+                    async function check_if_error() //it start server, by checking if sth is working, and starts it
                     {
                         await check_status()
                         var any_status = true
@@ -140,7 +140,7 @@ client.on("messageCreate",message => {
                             if(status[i] == false)
                             {
                                 any_status = false
-                            } //Jezeli którykolwiek serwer jest wyłaczony to any_status bedzie false
+                            } //if any server is shutdown variable any_status will be set to false
                         }
                         if(any_status == true) //Fizyczny serwer działa napewno, wiec sproboje właczyc komendą
                         {
@@ -151,10 +151,10 @@ client.on("messageCreate",message => {
 
                             message.channel.send('Powinien być włączony')
                         }
-                        else if(any_status == false) //Którys z serwerów nie działa
+                        else if(any_status == false) //one of the servers is no working
                         {
-                            const hard_s = await check_hard() //najpierw sprawdza czy fizyczny serwer odpowiada
-                            if(hard_s == true) //jezeli tak, to uruchamia komendą
+                            const hard_s = await check_hard() //at first it checks if machine responds
+                            if(hard_s == true) //if true it will start it
                             {
                                 client.channels.cache.get(config.server_bot_channel).send(config.servers[i+1])
                                 setTimeout(function(){
@@ -162,7 +162,7 @@ client.on("messageCreate",message => {
                                 },3*1000)
                                 message.channel.send('Serwer się uruchamia (30 sekund)')
                             }
-                            else if(hard_s == false) //jezeli nie to uruchamia fizyczny serwer
+                            else if(hard_s == false) //if false it start machine (real one, no virtual)
                             {
                                 start_hardware()
                                 message.channel.send('Serwer się uruchamia (3-4 minuty)')
@@ -175,12 +175,12 @@ client.on("messageCreate",message => {
             }
         }
         else if(message.content.includes('s'))
-        { //do testowania
+        { //here tests
             console.log(status)
         }
     }
     else if(message.content.includes('Server has stopped'))
-    {   //AKTUALIZACJA GDY WEJDZIE INFORMACJA ZE KTORYS SERWER SIE WYLACZYL
+    {   //update when got information about that any server is off
 
         async function stopping()
         {
@@ -191,12 +191,12 @@ client.on("messageCreate",message => {
                 if(status[i] == true)
                 {
                     any_status = true
-                } //Jezeli którykolwiek serwer jest włączony to any_status bedzie true
+                } //if any server is enabled any_status will be set to true
             }
 
             if(any_status == false)
             {
-                for(let i = 0; i<servers.length/3; i+=1)        //aby nic dziwnego sie nie wydarzyło podczas wyłączania nie mozna użyć komendy start
+                for(let i = 0; i<servers.length/3; i+=1)        //to prevent issue blocks using start command
                 {cooldown[i] = message.createdTimestamp+180000}
 
                 client.channels.cache.get(config.server_bot_channel).send("./home/magik/serwer") //komenda shutdown uruchamia plik (nie trzeba dzieki temu wpisywać sudo) z komendą shutdown
