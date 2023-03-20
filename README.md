@@ -1,5 +1,7 @@
 Bot I ve wrote to control my local_machine that uses too much power to work 24/7
 
+uses IFTTT and smart home socket 
+
 It's hard to set, without few thing that I don't mentioned here
 
 What It do ?
